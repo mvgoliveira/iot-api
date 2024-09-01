@@ -1,7 +1,8 @@
 const WebSocket = require('ws');
+const { BD } = require('./bd');
 
 const { getTemperatureByAssetId, updateTemperatureByAssetId } = require('./services/temperatureService'); 
-const { getAssets, getAssetById } = require('./services/assetService');
+const { getAssetById } = require('./services/assetService');
 const { getEnergiesByAssetId, updateEnergyStateByEnergyId } = require('./services/energyService');
 
 const wss = new WebSocket.Server({ port: 8080 });
@@ -13,10 +14,10 @@ let newTempIntervalId = "";
 wss.on('connection', (ws) => {
 	console.log('Novo cliente conectado.');
 
-	const assets = getAssets();
+    const spaceData = BD.space;
 
-	if (assets) {
-		ws.send(JSON.stringify({ type: 'assets', data: assets }));
+	if (spaceData) {
+		ws.send(JSON.stringify({ type: 'spaceResponse', data: spaceData }));
 	}
 
 	ws.on('message', (message) => {
