@@ -1,9 +1,9 @@
 const { BD } = require('../bd');
 
 function getTemperatureByAssetId(assetId) {
-  const spaceData = BD.space;
+  const spacesData = BD.spaces;
 
-  const temperature = spaceData.assets.find(asset => asset.id === assetId).temperature;
+  const temperature = spacesData[0].assets.find(asset => asset.id === assetId).temperature;
 
   return temperature;
 }
@@ -12,9 +12,9 @@ function updateTemperatureByAssetId(assetId) {
   try {
     const newTemperature = Math.floor(Math.random() * 25) + 15;
 
-    const spaceData = BD.space;
+    const spacesData = BD.spaces;
 
-    let newTemperatureData = spaceData.assets.find(asset => asset.id === assetId).temperature;
+    let newTemperatureData = spacesData[0].assets.find(asset => asset.id === assetId).temperature;
 
     return {
       ...newTemperatureData,

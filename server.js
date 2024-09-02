@@ -14,15 +14,17 @@ let newTempIntervalId = "";
 wss.on('connection', (ws) => {
 	console.log('Novo cliente conectado.');
 
-    const spaceData = BD.space;
-
-	if (spaceData) {
-		ws.send(JSON.stringify({ type: 'spaceResponse', data: spaceData }));
-	}
-
 	ws.on('message', (message) => {
 		try {
 			const parsedMessage = JSON.parse(message);
+
+			if (parsedMessage.type === 'spacesRequest') {
+				const spacesData = BD.spaces;
+
+				if (spacesData) {
+					ws.send(JSON.stringify({ type: 'spacesResponse', data: spacesData }));
+				}
+			}
 
 			if (parsedMessage.type === 'assetRequest') {
 				const assetData = getAssetById(parsedMessage.assetId)
@@ -38,15 +40,13 @@ wss.on('connection', (ws) => {
 
 				function updateTemperature(assetId) {
 					const temperatureData = updateTemperatureByAssetId(assetId);
-					ws.send(JSON.stringify({ type: 'new-temperature', data: temperatureData }));
+					ws.send(JSON.stringify({ type: 'temperatureResponse', data: temperatureData }));
 				}
 
 				newTempIntervalId = setInterval(() => updateTemperature(parsedMessage.assetId), 5000);
 			}
 
 			if (parsedMessage.type === 'energiesRequest') {
-				console.log(parsedMessage.assetId);
-
 				const energiesData = getEnergiesByAssetId(parsedMessage.assetId);
 
 				if (energiesData) {
@@ -62,7 +62,12 @@ wss.on('connection', (ws) => {
 				);
 
 				if (energiesData) {
-					ws.send(JSON.stringify({ type: 'changeEnergyResponse', data: energiesData }));
+					wss.clients.forEach((client) => {
+						if (client.readyState === WebSocket.OPEN) {
+						  client.send(JSON.stringify({ type: 'changeEnergyResponse', data: energiesData }));
+						}
+					  });
+				
 				}
 			}
 		} catch (error) {

@@ -1,9 +1,9 @@
 const { BD } = require('../bd');
 
 function getAssetById(assetId) {
-    const spaceData = BD.space;
+    const spacesData = BD.spaces;
 
-    return spaceData.assets.find(asset => asset.id === assetId);
+    return spacesData[0].assets.find(asset => asset.id === assetId);
 }
 
 module.exports = { getAssetById };

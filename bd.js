@@ -1,10 +1,10 @@
 const BD = {
-  space: {
+  spaces: [{
     name: "Casa do Marcelo",
     assets: [
       {
         id: "19ad739e-d168-44ba-bbda-5ccfd7bbf9d6",
-        name: "quarto",
+        name: "Quarto Principal",
         temperature: {
           mac: "6624724F1982",
           status: "high",
@@ -45,11 +45,11 @@ const BD = {
       },
       {
         id: "8fda6861-e992-40da-b487-651f09b4206b",
-        name: "cozinha",
+        name: "Cozinha",
         temperature: {
           mac: "D169F9807788",
           status: "high",
-          value: 38
+          value: 25
         },
         energies: [
           {
@@ -80,7 +80,7 @@ const BD = {
       },
       {
         id: "d9bc1aaa-4afe-4103-bf0a-bf70ca10affe",
-        name: "sala",
+        name: "Sala de Estar",
         temperature: {
           mac: "C16245137239",
           status: "low",
@@ -120,7 +120,7 @@ const BD = {
         ]
       }
     ]
-  }
+  }]
 }
 
 module.exports = { BD };
