@@ -32,13 +32,13 @@ const BD = {
           {
             id: "345fdbe2-25c3-4c94-bda7-dc8b9b11884b",
             type: "lampada",
-            name: "leitura",
+            name: "Leitura",
             status: "on"
           },
           {
             id: "b9a3c621-0087-4f88-b07d-36be85030345",
             type: "lampada",
-            name: "geral",
+            name: "Geral",
             status: "off"
           }
         ]
@@ -96,7 +96,7 @@ const BD = {
           {
             id: "c05d2b0d-f4d1-49d2-8b07-f5ff16d59d67",
             type: "tomada",
-            name: "Sofa",
+            name: "Sofá",
             status: "off"
           },
           {
